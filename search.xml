@@ -1,180 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Markdown测试文章</title>
-    <url>/markdown-test/</url>
-    <content><![CDATA[<h1>标题1</h1>
-<h2 id="标题2">标题2</h2>
-<h3 id="标题3">标题3</h3>
-<h1>标题H1</h1>
-<h2 id="标题H2">标题H2</h2>
-<h2 id="目录支持">目录支持</h2>
-<p>[TOC]</p>
-<p><code>[TOC]</code></p>
-<h2 id="基本功能">基本功能</h2>
-<p>段落<br>
-没有空行</p>
-<p>有空行</p>
-<h2 id="列表">列表</h2>
+    <title>关于 &amp; 留言</title>
+    <url>/null/</url>
+    <content><![CDATA[<h2 id="关于本站">关于本站</h2>
+<p>技术是一种精神，艺术是一种气质；Hacker Meets Painter；以画家之眼观世界，以黑客之手创未来。 本站取名为Paincker，取自Hacker和Painter两个词。技术和艺术是相通的。本站文章内容包括开发技术、兴趣爱好、学习与思考等。</p>
+<blockquote>
+<p>画家和黑客的相似之处在于：他们都是创造者，就好像作曲家，建筑师，以及作家一样。黑客和画家类似，他们的目的是创造某种美好的事物。</p>
+<div style="text-align: right">——《黑客与画家》</div>
+</blockquote>
+<h2 id="关于我">关于我</h2>
+<p>爱学习、爱思考、爱动手的90后理工男，程序员。兴趣爱好广泛，接触比较多的包括计算机、电子制作、摄影等。</p>
+<h3 id="个人经历">个人经历</h3>
+<p><strong>2011.9 – 2015.7：西安电子科技大学，西安</strong></p>
+<p><strong>2015.7 ~ 2018.10：美团外卖C端，北京，Android高级工程师</strong></p>
 <ul>
-<li>无序列表1</li>
-<li>无序列表2</li>
-</ul>
+<li>
+<p>参与美团外卖App、美团App外卖频道的研发。期间见证了外卖项目的高速发展，Android C端团队从4人扩展到40+，外卖日订单量超过2000w，公司规模逐步扩大并最终上市。个人在技术广度、深度上均有进步。</p>
+</li>
+<li>
+<p>业务主力开发，负责过首页、商家容器、评价等核心模块，参与架构设计、基础组件建设、性能优化、开发工具等技术工作。WMRouter主要作者。发表多篇美团技术博客，提升了团队影响力。</p>
+</li>
+<li>
+<p>发表的美团技术博客</p>
 <ol>
-<li>有序列表1</li>
-<li>有序列表2</li>
+<li><a href="https://tech.meituan.com/2017/01/19/hardware-accelerate.html">Android硬件加速原理与实现简介</a></li>
+<li><a href="https://tech.meituan.com/2018/08/23/meituan-waimai-android-open-source-routing-framework.html">WMRouter：美团外卖Android开源路由框架</a></li>
+<li><a href="https://tech.meituan.com/2018/04/13/waimai-android-lint.html">美团外卖Android Lint代码检查实践</a></li>
 </ol>
-<p>-列表无空格</p>
-<ul>
-<li>列表
-<ul>
-<li>二级列表</li>
-</ul>
 </li>
 </ul>
+<p><strong>2018.10 ~ 2020.4：某创业团队，上海，联合创始人 &amp; 全栈开发</strong></p>
+<p><strong>2020.4 ~ 至今：微软苏州Edge Mobile团队，Software Engineer</strong></p>
+<h3 id="部分作品展示">部分作品展示</h3>
+<h4 id="WMRouter（开源Android路由框架）">WMRouter（开源Android路由框架）</h4>
+<p>开源Android路由框架，基于组件化的设计思路，有功能灵活、使用简单的特点。</p>
+<p>GitHub (1.6k star) ：<a href="https://github.com/meituan/WMRouter">https://github.com/meituan/WMRouter</a></p>
+<p><a href="https://tech.meituan.com/2018/08/23/meituan-waimai-android-open-source-routing-framework.html">WMRouter：美团外卖Android开源路由框架</a></p>
+<p>成果：</p>
 <ul>
-<li>列表
-<ul>
-<li>二级列表
-<ul>
-<li>三级列表</li>
+<li>满足外卖复杂的URI跳转需求（下发链接、A/B测试、跳转前异步操作、降级策略、成功率监控等）。</li>
+<li>解决外卖架构设计中的四个关键问题：通信问题（跨业务库页面跳转）、复用问题（跨业务库代码复用）、依赖注入（多App复用时底层调用上层实现）、编译问题（业务库按需集成）。</li>
+<li>实际应用到多个Android项目中，包括美团外卖C端、外卖B端、美团、美团收银等。</li>
 </ul>
+<p>实现：AnnotationProcessor / Gradle / Transform / ASM / 组件化</p>
+<h4 id="Android-Lint代码检查方案">Android Lint代码检查方案</h4>
+<p>缓解代码规范难以落实、增加团队学习压力的问题。</p>
+<p><a href="https://tech.meituan.com/2018/04/13/waimai-android-lint.html">美团外卖Android Lint代码检查实践</a></p>
+<p>实现：</p>
+<ul>
+<li>检查四类问题：Crash预防、Bug预防、性能和安全、代码规范（Android原生+自定义Lint规则）。</li>
+<li>多阶段检查机制：Android Studio 实时检查（第一时间发现问题）、本地编译检查（高优问题强制检查）、CI检查（全量问题检查）、打包检查（确保可靠性）。</li>
+<li>其他：支持配置文件、模板规则、按Git版本检查。</li>
+</ul>
+<h4 id="PublishMarkdown（开源桌面工具）">PublishMarkdown（开源桌面工具）</h4>
+<p>发布Markdown文件到WordPress等博客的开源、跨平台桌面工具，支持中英文。提供简易编辑预览功能，支持主流Markdown语法、代码高亮、MathJax；一键发布，批量传图，文章属性设置。</p>
+<p>GitHub主页：<a href="https://github.com/jzj1993/PublishMarkdown">https://github.com/jzj1993/PublishMarkdown</a></p>
+<p>实现：Electron / Vue.js / ES6 / Sass</p>
+<h4 id="TimeTracer（Android性能分析工具）">TimeTracer（Android性能分析工具）</h4>
+<p>Android方法耗时分析工具。</p>
+<p><a href="http://www.paincker.com/time-tracer">http://www.paincker.com/time-tracer</a></p>
+<p>实现：Gradle / Javassist</p>
+<h4 id="Hertz-SDK（Android性能监控SDK）">Hertz SDK（Android性能监控SDK）</h4>
+<p>移动端性能监控SDK。参与页面测速模块设计与Android端实现。</p>
+<p><a href="https://tech.meituan.com/2016/12/19/hertz.html">移动端性能监控方案Hertz</a></p>
+<h3 id="相关链接">相关链接</h3>
+<ul>
+<li>
+<p><a href="https://github.com/jzj1993">GitHub</a></p>
 </li>
-<li>二级列表</li>
-</ul>
+<li>
+<p><a href="http://blog.csdn.net/jzj1993">CSDN博客</a></p>
 </li>
 </ul>
-<ul>
-<li>列表
-<ul>
-<li>二级列表
-<ul>
-<li>三级列表
-<ul>
-<li>四级列表</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="图片与链接">图片与链接</h2>
-<p>图片</p>
-<p><img data-src="https://www.baidu.com/img/bd_logo1.png" alt="图片"></p>
-<p><img data-src="/blog-imgs/markdown-test/img/markdown-test-image.jpg" alt="本地图"></p>
-<p>自动链接</p>
-<p>测试 <a href="http://www.baidu.com">http://www.baidu.com</a> 测试</p>
-<p>测试http://www.baidu.com 测试</p>
-<p>测试http://www.baidu.com测试</p>
-<h2 id="特殊字体">特殊字体</h2>
-<p>测试<strong>星号粗体</strong>测试</p>
-<p>测试__下划线粗体__测试</p>
-<p>测试<em>斜体</em>测试</p>
-<p>测试<s>删除线</s>测试</p>
-<p>测试==高亮==测试</p>
-<p>测试++下划线++测试</p>
-<h2 id="水平线">水平线</h2>
-<p>减号</p>
-<hr>
-<p>星号</p>
-<hr>
-<p>下划线</p>
-<hr>
-<h2 id="引用">引用</h2>
-<blockquote>
-<p>引用</p>
-</blockquote>
-<blockquote>
-<p>引用<br>
-二级引用<br>
-三级引用</p>
-</blockquote>
-<blockquote>
-<p>引用</p>
-<blockquote>
-<p>二级引用</p>
-<blockquote>
-<p>三级引用<br>
-二级引用2</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<h2 id="表格支持">表格支持</h2>
-<table>
-<thead>
-<tr>
-<th>Tables</th>
-<th style="text-align:center">Are</th>
-<th style="text-align:right">Cool</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>col 3 is</td>
-<td style="text-align:center">right-aligned</td>
-<td style="text-align:right">$1600</td>
-</tr>
-<tr>
-<td>col 2 is</td>
-<td style="text-align:center">centered</td>
-<td style="text-align:right">$12</td>
-</tr>
-<tr>
-<td>zebra stripes</td>
-<td style="text-align:center">are neat</td>
-<td style="text-align:right">$1</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th>Markdown</th>
-<th>Less</th>
-<th>Pretty</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><em>Still</em></td>
-<td><code>renders</code></td>
-<td><strong>nicely</strong></td>
-</tr>
-<tr>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-</tr>
-</tbody>
-</table>
-<h2 id="代码与高亮">代码与高亮</h2>
-<p>代码块</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// C++</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello Markdown Hello Markdown Hello Markdown!\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>行间代码</p>
-<p>测试 <code>void testMain(int args)</code> 测试</p>
-<h2 id="图表支持">图表支持</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[Christmas] --&gt;|Get money| B(Go shopping)</span><br><span class="line">    B --&gt; C&#123;Let me think&#125;</span><br><span class="line">    C --&gt;|One| D[Laptop]</span><br><span class="line">    C --&gt;|Two| E[iPhone]</span><br><span class="line">    C --&gt;|Three| F[Car]</span><br></pre></td></tr></table></figure>
-<h2 id="数学公式支持">数学公式支持</h2>
-<p>Latex公式测试</p>
-<p>行内公式 $ \delta = \beta / (\alpha + 1)$</p>
-<p>行间公式 $$ \frac{O}{I} \approx \frac{A}{1+AF} $$</p>
-<p>上下标 $$ U_o = A^2 * ( U_+ - U_- ) $$</p>
-<p>积分 $$ \int_1 ^2 sin x dx $$</p>
-<p>方程组<br>
-$$<br>
-\begin{aligned}<br>
-\dot{x} &amp; = \sigma(y-x) \<br>
-\dot{y} &amp; = \rho x - y - xz \<br>
-\dot{z} &amp; = -\beta z + xy<br>
-\end{aligned}<br>
-$$</p>
+<h2 id="公众号">公众号</h2>
+<p>欢迎扫码关注个人微信公众号“搬砖的小明”。</p>
+<p><img data-src="/blog-imgs/%E6%97%A5%E5%B8%B8/about/wechat-qrcode.jpg" alt=""></p>
 ]]></content>
       <categories>
-        <category>开发技术</category>
+        <category>uncategorized</category>
       </categories>
-      <tags>
-        <tag>Web开发</tag>
-      </tags>
   </entry>
 </search>
