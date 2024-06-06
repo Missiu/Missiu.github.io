@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo-128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo-16.png">
+  <link rel="mask-icon" href="/images/logo-128.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"missiu.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="基本概念和原理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker笔记">
+<meta property="og:url" content="https://missiu.github.io/45d92c83/">
+<meta property="og:site_name" content="HuVoyage">
+<meta property="og:description" content="基本概念和原理">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://missiu.github.io/blog-imgs/deploy/docker/attachments/68eb696d4a771101f1b4fe2bf4645511.png">
+<meta property="article:published_time" content="2024-06-03T12:56:31.000Z">
+<meta property="article:modified_time" content="2024-06-03T12:56:31.000Z">
+<meta property="article:author" content="Hzh">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="容器">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://missiu.github.io/blog-imgs/deploy/docker/attachments/68eb696d4a771101f1b4fe2bf4645511.png">
+
+<link rel="canonical" href="https://missiu.github.io/45d92c83/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Docker笔记 | HuVoyage</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?01cb9081555fb604776b223fe01db45d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">HuVoyage</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://missiu.github.io/45d92c83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hzh">
+      <meta itemprop="description" content="胡志豪的个人博客，25届毕业生，专注java后端开发">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HuVoyage">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Docker笔记
+        </h1>
+
+        <div class="post-meta">
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-06-03 20:56:31" itemprop="dateCreated datePublished" datetime="2024-06-03T20:56:31+08:00">2024-06-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/deploy/" itemprop="url" rel="index"><span itemprop="name">项目部署</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/deploy/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/45d92c83/" class="post-meta-item leancloud_visitors" data-flag-title="Docker笔记" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/45d92c83/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/45d92c83/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="基本概念和原理">基本概念和原理</h2>
+<p><img data-src="/blog-imgs/deploy/docker/attachments/68eb696d4a771101f1b4fe2bf4645511.png" alt="|625"></p>
+<ul>
+<li>镜像：类似Java中的类，或者说是一个软件，只读</li>
+<li>容器：类似Java中类的对象实例，运行中的软件，可读可写</li>
+<li>仓库：docker镜像分享合集，docker pull ；先找本地再找远程，<a target="_blank" rel="noopener" href="https://hub.docker.com/">dockerhub</a></li>
+<li>docker daemon：服务端守护进程，管理docker的各种资源</li>
+<li>docker client：客户端发送命令和docker daemon进行交互</li>
+</ul>
+<h2 id="安装docker">安装docker</h2>
+<ol>
+<li>
+<p>在官网选择对应的操作系统，选择教程进行安装：<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/">https://docs.docker.com/engine/install/</a></p>
+</li>
+<li>
+<p>可以使用官方脚本自动安装：curl -fsSL <a target="_blank" rel="noopener" href="https://get.docker.com">https://get.docker.com</a> | bash -s docker --mirror Aliyun</p>
+</li>
+<li>
+<p>检查是否安装成功</p>
+<ol>
+<li>开机自启动：sudo systemctl enable docker</li>
+<li>启动docker：sudo systemctl start docker （stop停止）</li>
+<li>查看docker版本：docker version</li>
+<li>查看状态：sudo systemctl status docker</li>
+<li>下载测试映像并在容器中运行hello word测试：sudo docker run hello-world</li>
+</ol>
+</li>
+<li>
+<p>镜像加速：<a target="_blank" rel="noopener" href="https://cr.console.aliyun.com/cn-hongkong/instances/mirrors">阿里云镜像加速器</a></p>
+</li>
+</ol>
+<h2 id="容器化">容器化</h2>
+<ol>
+<li>创建Dockerfile</li>
+<li>使用Dockerfile构建镜像</li>
+<li>使用镜像创建和运行容器</li>
+</ol>
+<h2 id="基本操作">基本操作</h2>
+<h3 id="镜像">镜像</h3>
+<p><code>docker version</code> | docker引擎信息<br>
+<code>docker info</code> | docker引擎详细信息<br>
+<code>docker images</code>   |  查看当前有哪些镜像<br>
+<code>docker image  -q  名称</code> |  查看指定镜像id<br>
+<code>docker image  rm 名称（id）</code> |  删除镜像（未运行过的镜像）<br>
+<code>docker image  rm -f 名称（id）</code> |  强制删除镜像<br>
+<code>docker pull 名称 版本</code>  | 远程拉取镜像<br>
+<code>docker search  名称</code> | 查看镜像是否存在<br>
+<code>docker images rm -f $(docker images -q 名称)</code>   | 删除所有指定名称的镜像<br>
+<code>docker  tag  旧镜像名 新镜像名</code> | 镜像改名</p>
+<h3 id="容器">容器</h3>
+<p><code>docker ps</code>  | 查看当前docker引擎正在运行的容器 ，加<code>-a</code> 查看所有的容器<br>
+<code>docker run 镜像名称|镜像id</code>   |  运行容器，未映射<br>
+<code>docker run -p8080(宿主机的端口):8080(容器的端口) 镜像名称|镜像id</code></p>
+<blockquote>
+<ul>
+<li>建立映射 -p 运行（需要防火墙，映射后就进入白名单了），注意容器间端口的操作系统隔离，可以映射多个端口</li>
+<li>添加-d 是后台（守护进程启动）</li>
+<li>添加–name 名称 ，容器启动的唯一名称</li>
+<li>不管顺序</li>
+<li>跟着docker重启docker容器 <code> --restart=always</code></li>
+</ul>
+</blockquote>
+<p><strong>数据卷</strong>：容器和主机的数据映射，容器首次启动时设置<br>
+<code>docker run -v 宿主机目录:容器内目录</code> | 数据卷映射，始终与宿主机为主（会清空容器 ），<code>:ro</code>容器只读只能宿主机影响<br>
+<code>docker run -v 别名:容器内目录</code> | 如果别名里没有内容则不清空容器，目录默认在<code>/var/lib/docker/volumes/</code>里面</p>
+<p><code>docker stop 容器id|名称</code> | 停止<br>
+<code>docker restart 容器id|名称</code> | 重启<br>
+<code>docker start 容器id|名称</code> | 启动容器<br>
+<code>docker pause 容器id|名称</code> | 暂停运行<br>
+<code>docker unpause 容器id|名称</code> | 恢复运行<br>
+<code>docker kill 容器id|名称</code> | 杀死容器<br>
+<code>docker rm 容器id|名称</code> | 删除容器（已经 停止）<code>-f</code>强制删除，可以组合删除<br>
+<code>docker logs 容器id|名称</code> | 容器日志 <code>-f</code> 实时监控容器，<code>-t</code> 展示时间<br>
+<code>docker exec -it 容器id|名称 bash</code> | 交互模式进入容器，会切换成容器的bash终端<br>
+<code>exit</code> 退出容器<br>
+<code>docker cp 容器id:容器中文件或目录主机那个目录</code> | 将容器中指定文件和目录拷贝到宿主机<br>
+<code>docker cp主机文件和目录 容器id:容器中目录</code> | 将主机中指定文件和目录拷贝到容器内</p>
+<blockquote>
+<p>如何部署一个web项目war包项 目</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a. 将test.war 上传到linxu服务器</span><br><span class="line">b. 通过docker cp命令将test.war复制到tomcat的webapps目录中即可</span><br><span class="line">c. ip端口测试访问</span><br></pre></td></tr></table></figure>
+<p><code>docker top 容器id|名称</code> | 查看容器进程<br>
+<code>docker inspect 容器id|名称</code> | 查看容器内部细节<br>
+<strong>打包容器：</strong><br>
+<code>docker commit -m &quot;提交信息&quot; -a &quot;作者&quot; 容器id|name 镜像名:版本</code><br>
+<strong>镜像的备份和恢复:</strong><br>
+<code>docker save 镜像名 -o 名称（名称-版本）.tar</code> | 打包镜像<br>
+<code>docker load -i 名称.tar</code> | 载入镜像</p>
+<h2 id="高级网络通信">高级网络通信</h2>
+<p>docker容器间的通信，在创建docker容器的时候会有一对接口 一个叫<code>eth0</code>在容器内部, 一个以  <code>veth</code>开头被挂载到 <code>docker0</code>网桥（一个内一个外），一个接口接受数据时，另一个也会接受相同的数据，<strong>虚拟共享网络</strong></p>
+<p>所以，默认容器间就可以通信！</p>
+<ol>
+<li><code>docker inspect 容器id|名称</code> | 查看容器内部细节</li>
+<li>获得ip，进行通信，也可以使用容器名称进行通信（必须自定义网桥，不能再用docker0）</li>
+<li>一般都是自定义，如果都走<code>docker0</code>一个网桥会影响通信</li>
+</ol>
+<p><code>docker network create 网络名称</code>  | 创建网桥<br>
+<code>docker network ls</code>  | 查看网络<br>
+<code>docker inspect network 网络名称</code> | 查看网络内部细节<br>
+<code>docker network rm 网络名称</code>  | 删除指定网络<br>
+<code>docker network prune</code>  | 删除所有未被用到的网络</p>
+<p>对于容器启动前（后）都可以修改网络<br>
+运行前：<code>--network 网络名称</code><br>
+运行时：<code>docker network connect 网络名称 容器id|name</code></p>
+<h2 id="Dockerfile">Dockerfile</h2>
+<p>Dockerfile可以认为是<strong>Docker镜像的描述文件</strong>,是由一系列命令和参数构成的脚本。主要作<br>
+用是用来<strong>构建docker镜像的构建文件</strong>。</p>
+<p><code>docker build -t 名称:版本 .（dockerfile所在位置，就一个点就是当前目录）</code></p>
+<p><strong>一行一个保留字</strong></p>
+<table>
+<thead>
+<tr>
+<th>保留字</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FROM</td>
+<td>当前镜像是基于哪个镜像的，第一个指令必须是FROM</td>
+</tr>
+<tr>
+<td>MAINTAINER</td>
+<td>镜像维护者的姓名和邮箱地址（废弃）</td>
+</tr>
+<tr>
+<td>RUN</td>
+<td>构建镜像时需要运行的指令，基于FROM的指定镜像</td>
+</tr>
+<tr>
+<td>EXPOSE</td>
+<td>当前容器对外暴露出的端口号，仅做声明作用</td>
+</tr>
+<tr>
+<td>WORKDIR</td>
+<td>指定在创建容器后,终端默认登录进来的工作目录, 一个落脚点</td>
+</tr>
+<tr>
+<td>ENV</td>
+<td>用来在构建镜像过程中设置环境变量，key=value 引用$key</td>
+</tr>
+<tr>
+<td>ADD</td>
+<td>将宿主机目录下的文件拷贝进镜像且ADD命令会自动处理URL和解压tar包</td>
+</tr>
+<tr>
+<td>COPY</td>
+<td>类似于ADD ,拷贝文件和目录到镜像中<br>将从构建上下文目录中&lt;原路径&gt;的文件/目录复制到新的一层的镜像内的<br>&lt;目标路径&gt;位置</td>
+</tr>
+<tr>
+<td>VOLUME</td>
+<td>容器数据卷,用于数据保存和持久化工作,仅做声明作用</td>
+</tr>
+<tr>
+<td>CMD</td>
+<td>指定一个容器启动时要运行的命令，Dockerfile中可以有多个CMD指令,但只有最后一个生效，CMD会被docker run之后的参数替换</td>
+</tr>
+<tr>
+<td>ENTRYPOINT</td>
+<td>指定-一个容器启动时要运行的命令<br>ENTRYPOINT的目的和CMD一样,都是在指定容器启动程序及其参数</td>
+</tr>
+<tr>
+<td>## Docker-compose</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="引入">引入</h3>
+<ul>
+<li>容器启动顺序至关重要</li>
+<li>多服务器部署变得困难</li>
+</ul>
+<p>docker-compose 实现docker容器集群的快速编排，<code>docker-compose.yml</code>就是应用（project，完整的业务单元），service，一个项目中的某一个容器，称为一个服务</p>
+<h3 id="安装">安装</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 下载</span></span><br><span class="line">sudo curl -L https://github.com/docker/compose/releases/download/v2.24.6/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 权限</span></span><br><span class="line">sudo chmod +x /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+<h3 id="使用">使用</h3>
+<p><code>docker-compose up [options] [SERVICE. ..]</code>  | 在docker-compose.yml配置文件目录启动docker-compose，该命令十分强大，它将尝试自动完成包括构建镜像，( 重新)创建服务，启动服务,并关联服务相关容器的一系列操作。链接的服务都将会被自动启动，除非已经处于运行状态。<code>-d</code> 将会在后台启动并运行所有的容器，默认情况，如果服务容器已经存在，会尝试停止容器,然后重新创建(保持使用<code>volumes -from</code>挂载的卷) ,以保证新启动的服务匹配<code>docker-compose.yml</code>文件的最新内容</p>
+<p><code>docker-compose down</code> | 关闭所有容器,并移除网络</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker-compose版本</span></span><br><span class="line"><span class="string">version:&quot;3.0&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">	<span class="comment"># 服务名称</span></span><br><span class="line">	<span class="attr">tomcat:</span></span><br><span class="line">	<span class="comment"># 服务镜像</span></span><br><span class="line">	<span class="attr">images:</span> <span class="string">tomcat8.0</span> <span class="comment"># 镜像名称</span></span><br><span class="line">	<span class="attr">ports:</span> <span class="comment"># 端口映射</span></span><br><span class="line">		<span class="bullet">-</span> <span class="number">8080</span><span class="string">:8080</span> </span><br><span class="line">	<span class="attr">environment:</span> <span class="comment"># 指定启动环境</span></span><br><span class="line">		<span class="bullet">-</span> </span><br><span class="line">	<span class="attr">volumens:</span> <span class="comment"># 指定数据卷,路径必须存在</span></span><br><span class="line">		<span class="bullet">-</span> <span class="string">/root/data:/var/lib</span></span><br><span class="line"></span><br><span class="line"><span class="attr">volumens:</span> <span class="comment"># 声明data卷</span></span><br><span class="line">	<span class="string">data：</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>build</code> 指令通过docker-compose在启动容器之前现根据Dockerfile构建镜像,然后根据构建镜像启动容器</li>
+<li><code>comnand</code> 指令覆盖容器启动后默认执行的命令</li>
+<li><code>container_name</code>指令用来指定docker-compose启动容器名称注意:不推荐指定容器名称</li>
+<li><code>depends_ on</code>指令解决容器的依赖、启动先后的问题注意:当前服务不会等待被依赖服务「 完全启动」之后才启动</li>
+<li><code>environment</code> 指令用来给容器启动指定环境变量相当于docker run -e选项</li>
+<li><code>env_ file</code> 指令用来给容器启动指定环境变量文件相当于docker run -e选项</li>
+<li><code>expose</code> 指令用来指定构建镜像过程中容器暴露的端口号</li>
+<li><code>image</code> 指令用来指定启动容 器使用镜像是谁相当于docker run image(镜 像名)</li>
+<li><code>networks</code> 指令用来指定 启动容器使用网桥相当于 docker run --network</li>
+<li><code>ports</code> 指令用来指 定宿主机和容器端口映射相当于docker run -p</li>
+<li><code>volunes</code> 指令用来指定宿主机中容器目录目录映射 docker run -v</li>
+<li><code>restart</code>指令用来指定docker容器(服务)总是运行 docker run – rest art= always .</li>
+</ul>
+<h2 id="来源">来源</h2>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV11L411g7U1/?spm_id_from=333.337.search-card.all.click">Docker 1小时快速上手教程，无废话纯干货</a><br>
+<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1wQ4y1Y7SE/?p=1&amp;spm_id_from=pageDriver">【编程不良人】Docker&amp;Docker-Compose 实战!</a></p>
+
+    </div>
+
+    
+    
+    
+      
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/docker/" rel="tag"># docker</a>
+              <a href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag"># 容器</a>
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/c1262c9c/" rel="next" title="低成本博客与多端同步笔记">
+      低成本博客与多端同步笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">基本概念和原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85docker"><span class="nav-number">2.</span> <span class="nav-text">安装docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">容器化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">4.</span> <span class="nav-text">基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%95%9C%E5%83%8F"><span class="nav-number">4.1.</span> <span class="nav-text">镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8"><span class="nav-number">4.2.</span> <span class="nav-text">容器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1"><span class="nav-number">5.</span> <span class="nav-text">高级网络通信</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile"><span class="nav-number">6.</span> <span class="nav-text">Dockerfile</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E5%85%A5"><span class="nav-number">6.1.</span> <span class="nav-text">引入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">6.2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">6.3.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A5%E6%BA%90"><span class="nav-number">7.</span> <span class="nav-text">来源</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hzh</p>
+  <div class="site-description" itemprop="description">胡志豪的个人博客，25届毕业生，专注java后端开发</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Missiu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Missiu" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hzh</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : '3YlzwEecQlMdJPH9KEbFt6PX-gzGzoHsz',
+      appKey     : 'raIB2P7DewB4SAboVtpHakbh',
+      placeholder: "输入评论...",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '20' || 10,
+      visitor    : true,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

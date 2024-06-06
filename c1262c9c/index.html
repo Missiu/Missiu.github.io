@@ -20,13 +20,15 @@
     var CONFIG = {"hostname":"missiu.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="胡志豪的个人博客，25届毕业生，专注java后端开发">
-<meta property="og:type" content="website">
-<meta property="og:title" content="HuVoyage">
-<meta property="og:url" content="https://missiu.github.io/">
+  <meta name="description" content="前言  本文档不是手把手教程 博客是使用hexo+next主题魔改搭建到github">
+<meta property="og:type" content="article">
+<meta property="og:title" content="低成本博客与多端同步笔记">
+<meta property="og:url" content="https://missiu.github.io/c1262c9c/">
 <meta property="og:site_name" content="HuVoyage">
-<meta property="og:description" content="胡志豪的个人博客，25届毕业生，专注java后端开发">
+<meta property="og:description" content="前言  本文档不是手把手教程 博客是使用hexo+next主题魔改搭建到github">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-06-04T02:30:20.000Z">
+<meta property="article:modified_time" content="2024-06-04T02:30:20.000Z">
 <meta property="article:author" content="Hzh">
 <meta property="article:tag" content="计算机">
 <meta property="article:tag" content="开发">
@@ -38,20 +40,20 @@
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://missiu.github.io/">
+<link rel="canonical" href="https://missiu.github.io/c1262c9c/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>HuVoyage</title>
+  <title>低成本博客与多端同步笔记 | HuVoyage</title>
   
 
 
@@ -197,9 +199,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -215,10 +218,9 @@
       <meta itemprop="name" content="HuVoyage">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/c1262c9c/" class="post-title-link" itemprop="url">低成本博客与多端同步笔记</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          低成本博客与多端同步笔记
+        </h1>
 
         <div class="post-meta">
 
@@ -282,20 +284,82 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="前言">前言</h2>
+        <h2 id="前言">前言</h2>
 <ol>
 <li>本文档不是手把手教程</li>
 <li>博客是使用hexo+next主题魔改搭建到github</li>
 </ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/c1262c9c/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
+<h2 id="1-我的需求">1. 我的需求</h2>
+<ol>
+<li>编辑笔记方便，一般使用md语法，需要放图片在笔记里</li>
+<li>有内容产出，需要很方便的发布博客，方便全局搜索，也方便查看</li>
+<li>数据可靠，喜欢把数据放在本地，管理方便自由程度高</li>
+<li>多端同步，很多时候在平板上也需要有笔记产出，主要电脑编辑，其他设备查看</li>
+<li>数据备份很重要</li>
+<li>长期使用需要低成本</li>
+</ol>
+<h2 id="2-解决思路">2. 解决思路</h2>
+<h3 id="2-1-笔记软件选择">2.1 笔记软件选择</h3>
+<p>市面上很多笔记软件较为有代表性的：</p>
+<ul>
+<li>神中神Typora：我很长一段时间都是用的Typora，Typora支持所见即所得的编辑模式。插入图片时，可以在界面上直接粘贴，Typora会自己把图片复制到指定的目录，Typora还能粘贴网页上带格式的富文本，自动转换成Markdown，但是功能也就局限于md编辑的良好体验上，没有多平台，不能满足我的大多数需求</li>
+<li>obsidian：插件丰富，拓展性强，具备了md 的 大部分功能，虽然粘贴自动转换成Markdown的功能没有Typora好用，但是无伤大雅，具备丰富的插件更能适配我的较高需求，而且多平台都有软件</li>
+<li>印象笔记、语雀、Effie，等等等等，数据都没在本地，直接排除</li>
+</ul>
+<p>所以选择obsidian作为编辑笔记软件</p>
+<h3 id="2-2-多端同步">2.2 多端同步</h3>
+<p><strong>笔记编辑的图片问题：</strong><br>
+之前使用图床+piclist进行图片上传，这样就不需要担心图片怎么上传到博客的问题，但是在图片的管理方面显得不太方便，较为杂乱，假如图片要更新，还需要在piclist里手动删除云端的图片，所以图片还是放在本地，随着博客一起上传</p>
+<p><strong>多端同步成本问题：</strong><br>
+obsidian有官方同步、有同步插件，等等，详细可以见：<a target="_blank" rel="noopener" href="https://forum-zh.obsidian.md/t/topic/29995">对已知的obsidian同步方式进行整理</a>我这里综合考量使用的微力同步，免费，可以使用自己的私有节点进行同步，数据安全有保障，并且他是同步文件夹，这就意味着可以在其他端同步obsidian的主题、插件等，满足需求。</p>
+<h3 id="2-3-数据备份">2.3 数据备份</h3>
+<p>这里选择很宽泛，也有很多的云盘同步备份策略，甚至可以上nas，我这里选择github，通过git提交数据到github的私有库+百度云自动备份+隔几周手动备份到移动硬盘</p>
+<h3 id="2-4-便捷部署到博客">2.4 便捷部署到博客</h3>
+<p>很幸运我在搜索相关内容的时候，发现了一篇宝藏文章，不仅为我提供了思路，还给出了Hexo的魔改代码：<a target="_blank" rel="noopener" href="https://www.paincker.com/note-and-blog-system/">构建自己的笔记博客系统（程序员版）</a>可以参考其操作以及开源库</p>
+<h2 id="3-步骤">3. 步骤</h2>
+<h3 id="3-1-笔记软件配置">3.1 笔记软件配置</h3>
+<ol>
+<li>多端安装obsidan</li>
+<li>安装插件：
+<ol>
+<li>Clear Unused Images ：清除不使用的图片</li>
+<li>Consistent Attachments and Links ： 插件可以设置把文章的图片都放在平级的images目录中，如果移动笔记，对应的图片也会被移动 （<strong>必须</strong>）</li>
+<li>Markdown prettifier ： 整理Markdown格式</li>
+<li>Mousewheel Imagezoom ： 能够通过滚动来增加/减少图像的大小</li>
+<li>Templater ： 用来配置博客的Front-matter，参考文章：<a target="_blank" rel="noopener" href="https://itreefly.com/posts/e5113722.html">Hexo和Obsidian：让个人博客写作更加优雅、高效</a> （<strong>必须</strong>）</li>
+<li>Unique attachments ：使图片链接的名称唯一（基于文件内容的哈希值）</li>
+</ol>
+</li>
+</ol>
+<h3 id="3-2-多端同步配置">3.2 多端同步配置</h3>
+<ol>
+<li>多端下载微力同步</li>
+<li><a target="_blank" rel="noopener" href="https://www.verysync.com/manual/users/start.html">配置同步</a></li>
+</ol>
+<h3 id="3-3-快捷发布博客">3.3 快捷发布博客</h3>
+<ol>
+<li>使用 <a target="_blank" rel="noopener" href="https://github.com/jzj1993/PublishMarkdown">https://github.com/jzj1993/PublishMarkdown</a> 搭建hexo博客</li>
+<li>先在本地跑起来，记得把测试文件移入<code>_posts</code>文件夹下</li>
+<li>发布到github 参考：<a target="_blank" rel="noopener" href="https://blog.soilove.cn/2020/06/14/blog-hexo-2-github-or-oss/#:~:text=Hexo%E4%BD%9C%E4%B8%BA%E4%B8%80%E4%B8%AA,%E4%BB%B6%E5%AE%9E%E7%8E%B0%E5%BF%AB%E9%80%9F%E5%8F%91%E5%B8%83%E3%80%82">使用Github或阿里云OSS托管你的Hexo博客</a></li>
+<li>自定义hexo主题 参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/as480133937/article/details/100138838">Hexo-Next 主题博客个性化配置超详细，超全面(两万字)</a></li>
+<li>创建软连接，obsidian里的<code>Notes\blog </code>-&gt; 博客里<code> Blog\source\_posts</code> 这样编辑完文章只要把改文章拖到obsidian的blog目录下，就放在了博客文章目录里</li>
+<li>创建<code>deploy.sh</code>的快捷链接，放到obsidian的一个目录里，点一下就可以增量部署到博客</li>
+</ol>
+<h3 id="3-4-补充">3.4 补充</h3>
+<p>其他插件：</p>
+<ul>
+<li>笔记分享：可以用Pandoc插件的导出功能，把Markdown导出成HTML / Word / PDF文件分享给其他人。</li>
+<li>笔记同步：在Obsidian的Terminal插件提供的窗口中运行git命令，把最新的博客push到私有git仓库。也可以选择用Obsidian Git插件把数据同步上去。在其他设备上通过git再把变更同步下来。</li>
+</ul>
+<p>参考文章：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://forum-zh.obsidian.md/t/topic/29995">对已知的obsidian同步方式进行整理</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.paincker.com/note-and-blog-system/">构建自己的笔记博客系统（程序员版）</a></li>
+<li><a target="_blank" rel="noopener" href="https://itreefly.com/posts/e5113722.html">Hexo和Obsidian：让个人博客写作更加优雅、高效</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.soilove.cn/2020/06/14/blog-hexo-2-github-or-oss/#:~:text=Hexo%E4%BD%9C%E4%B8%BA%E4%B8%80%E4%B8%AA,%E4%BB%B6%E5%AE%9E%E7%8E%B0%E5%BF%AB%E9%80%9F%E5%8F%91%E5%B8%83%E3%80%82">使用Github或阿里云OSS托管你的Hexo博客</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/as480133937/article/details/100138838">Hexo-Next 主题博客个性化配置超详细，超全面(两万字)</a></li>
+</ul>
+
     </div>
 
     
@@ -303,139 +367,32 @@
     
       
 
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://missiu.github.io/45d92c83/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Hzh">
-      <meta itemprop="description" content="胡志豪的个人博客，25届毕业生，专注java后端开发">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="HuVoyage">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/45d92c83/" class="post-title-link" itemprop="url">Docker笔记</a>
-        </h2>
-
-        <div class="post-meta">
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-06-03 20:56:31" itemprop="dateCreated datePublished" datetime="2024-06-03T20:56:31+08:00">2024-06-03</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/deploy/" itemprop="url" rel="index"><span itemprop="name">项目部署</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/deploy/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/45d92c83/" class="post-meta-item leancloud_visitors" data-flag-title="Docker笔记" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/45d92c83/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/45d92c83/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="基本概念和原理">基本概念和原理</h2>
-<p><img data-src="/blog-imgs/deploy/docker/attachments/68eb696d4a771101f1b4fe2bf4645511.png" alt="|625"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/45d92c83/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/45d92c83/" rel="prev" title="Docker笔记">
+      <i class="fa fa-chevron-left"></i> Docker笔记
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -482,6 +439,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%88%91%E7%9A%84%E9%9C%80%E6%B1%82"><span class="nav-number">2.</span> <span class="nav-text">1. 我的需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF"><span class="nav-number">3.</span> <span class="nav-text">2. 解决思路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E7%AC%94%E8%AE%B0%E8%BD%AF%E4%BB%B6%E9%80%89%E6%8B%A9"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 笔记软件选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%A4%9A%E7%AB%AF%E5%90%8C%E6%AD%A5"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 多端同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E6%95%B0%E6%8D%AE%E5%A4%87%E4%BB%BD"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 数据备份</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E4%BE%BF%E6%8D%B7%E9%83%A8%E7%BD%B2%E5%88%B0%E5%8D%9A%E5%AE%A2"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 便捷部署到博客</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%AD%A5%E9%AA%A4"><span class="nav-number">4.</span> <span class="nav-text">3. 步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E7%AC%94%E8%AE%B0%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 笔记软件配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E5%A4%9A%E7%AB%AF%E5%90%8C%E6%AD%A5%E9%85%8D%E7%BD%AE"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 多端同步配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E5%BF%AB%E6%8D%B7%E5%8F%91%E5%B8%83%E5%8D%9A%E5%AE%A2"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 快捷发布博客</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E8%A1%A5%E5%85%85"><span class="nav-number">4.4.</span> <span class="nav-text">3.4 补充</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
