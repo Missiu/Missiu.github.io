@@ -11,15 +11,6 @@
   </url>
   
   <url>
-    <loc>https://missiu.github.io/45d92c83/</loc>
-    
-    <lastmod>2024-06-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://missiu.github.io/categories/</loc>
     
     <lastmod>2024-06-03</lastmod>
@@ -40,47 +31,12 @@
 
   <url>
     <loc>https://missiu.github.io/</loc>
-    <lastmod>2024-06-06</lastmod>
+    <lastmod>2024-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
-  <url>
-    <loc>https://missiu.github.io/tags/docker/</loc>
-    <lastmod>2024-06-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://missiu.github.io/tags/%E5%AE%B9%E5%99%A8/</loc>
-    <lastmod>2024-06-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://missiu.github.io/tags/%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2024-06-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
 
-  
-  <url>
-    <loc>https://missiu.github.io/categories/deploy/</loc>
-    <lastmod>2024-06-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://missiu.github.io/categories/deploy/%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2024-06-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
   
 </urlset>
